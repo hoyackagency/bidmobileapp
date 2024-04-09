@@ -4,8 +4,9 @@ const Logo = require("../assets/imgs/argon-logo.png");
 const LogoOnboarding = require("../assets/imgs/argon-logo-onboarding.png");
 const ProfileBackground = require("../assets/imgs/profile-screen-bg.png");
 const RegisterBackground = require("../assets/imgs/register-bg.png");
-const Pro = require("../assets/imgs/getPro-bg.png");
+const Pro = require("../assets/imgs/hoyack-background.jpeg");
 const ArgonLogo = require("../assets/imgs/argonlogo.png");
+const HoyackLogo = require("../assets/imgs/hoyack-logo.png");
 const iOSLogo = require("../assets/imgs/ios.png");
 const androidLogo = require("../assets/imgs/android.png");
 const ProfilePicture = require("../assets/imgs/profile-img.jpg")
@@ -54,6 +55,7 @@ export default {
   Viewed,
   Products,
   Pro,
+  HoyackLogo,
   ArgonLogo,
   iOSLogo,
   androidLogo,
