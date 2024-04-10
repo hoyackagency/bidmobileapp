@@ -3,7 +3,7 @@ import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions, Keyboard } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 import { CommonActions } from '@react-navigation/native';
-
+import { FontAwesome } from '@expo/vector-icons';
 import Icon from './Icon';
 import Input from './Input';
 import Tabs from './Tabs';
@@ -12,6 +12,12 @@ import argonTheme from '../constants/Theme';
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
+const GearButton = ({isWhite, navigation, style}) => (
+  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('SettingsDrawer')}>
+      <FontAwesome name="gear" size={24} color="black" />
+  </TouchableOpacity>
+);
+//FIXME: Figure out why we can't delete this button or repurpose it for something else
 const BellButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Notifications')}>
     <Icon
@@ -23,17 +29,17 @@ const BellButton = ({isWhite, style, navigation}) => (
     <Block middle style={styles.notify} />
   </TouchableOpacity>
 );
-
-const BasketButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Cart')}>
-    <Icon
-      family="ArgonExtra"
-      size={16}
-      name="basket"
-      color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-  </TouchableOpacity>
-);
+//FIXME: This can probably be deleted
+// const BasketButton = ({isWhite, style, navigation}) => (
+//   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Cart')}>
+//     <Icon
+//       family="ArgonExtra"
+//       size={16}
+//       name="basket"
+//       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
+//     />
+//   </TouchableOpacity>
+// );
 
 const SearchButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Search')}>
@@ -57,13 +63,13 @@ class Header extends React.Component {
 
     if (title === 'Title') {
       return [
-        <BellButton key='chat-title' navigation={navigation} isWhite={white} />,
-        <BasketButton key='basket-title' navigation={navigation} isWhite={white} />
+        //<BellButton key='chat-title' navigation={navigation} isWhite={white} />,
+        <GearButton key='gear-title' navigation={navigation} isWhite={white}/>
       ]
     }
 
     switch (title) {
-      case 'Home':
+      case 'Powerbidder':
       case 'Deals':
       case 'Categories':
       case 'Category':
@@ -73,67 +79,50 @@ class Header extends React.Component {
       case 'Settings':
         return ([
           <BellButton key='chat-categories' navigation={navigation} isWhite={white}/>,
-          <BasketButton key='basket-categories' navigation={navigation} isWhite={white}/>
+          //<BasketButton key='basket-categories' navigation={navigation} isWhite={white}/>
+          <GearButton key='settings' navigation={navigation} isWhite={white}/>
         ]);
       default:
         break;
     }
   }
+  //FIXME: This should be replaced with something or be deleted
   renderSearch = () => {
     const { navigation } = this.props;
     return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        placeholder="What are you looking for?"
-        placeholderTextColor={'#8898AA'}
-        onFocus={() => {Keyboard.dismiss(); navigation.navigate('Search');}}
-        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
-      />
+      <Text>
+      </Text>
     );
   }
+  //This could probably be deleted
   renderOptions = () => {
     const { navigation, optionLeft, optionRight } = this.props;
 
     return (
-      <Block row style={styles.options}>
-        <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Beauty')}>
-          <Block row middle>
-            <Icon name="diamond" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text style={{ fontFamily: 'open-sans-regular' }} size={16}  style={styles.tabTitle}>{optionLeft || 'Beauty'}</Text>
-          </Block>
-        </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Fashion')}>
-          <Block row middle>
-            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
-            <Text style={{ fontFamily: 'open-sans-regular' }} size={16} style={styles.tabTitle}>{optionRight || 'Fashion'}</Text>
-          </Block>
-        </Button>
-      </Block>
+      <Text>
+
+      </Text>
     );
   }
-  renderTabs = () => {
-    const { tabs, tabIndex, navigation } = this.props;
-    const defaultTab = tabs && tabs[0] && tabs[0].id;
+  // renderTabs = () => {
+  //   const { tabs, tabIndex, navigation } = this.props;
+  //   const defaultTab = tabs && tabs[0] && tabs[0].id;
     
-    if (!tabs) return null;
+  //   if (!tabs) return null;
 
-    return (
-      <Tabs
-        data={tabs || []}
-        initialIndex={tabIndex || defaultTab}
-        onChange={id => navigation.setParams({ tabId: id })} />
-    )
-  }
+  //   return (
+  //     <Tabs
+  //       data={tabs || []}
+  //       initialIndex={tabIndex || defaultTab}
+  //       onChange={id => navigation.setParams({ tabId: id })} />
+  //   )
+  // }
   renderHeader = () => {
-    const { search, options, tabs } = this.props;
-    if (search || tabs || options) {
+    const { search } = this.props;
+    if (search) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
-          {options ? this.renderOptions() : null}
-          {tabs ? this.renderTabs() : null}
         </Block>
       );
     }
@@ -199,7 +188,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4 : theme.SIZES.BASE,
-    zIndex: 5,
+    zIndex: 5
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,

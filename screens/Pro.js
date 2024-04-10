@@ -12,7 +12,7 @@ import { Block, Button, Text, theme } from "galio-framework";
 const { height, width } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants/";
 import { HeaderHeight } from "../constants/utils";
-
+//TODO: Perhaps this screen should say 'Powered by Hoyack'
 export default class Pro extends React.Component {
   render() {
     const { navigation } = this.props;
