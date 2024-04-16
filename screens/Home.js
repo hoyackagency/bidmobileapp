@@ -1,11 +1,12 @@
 import React, { Component} from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 import { Block, theme, Text } from "galio-framework";
-import Swiper from 'react-native-deck-swiper'
+import Swiper, {swipeRight, swipeLeft, swipeBack} from 'react-native-deck-swiper'
 import { Card } from "../components";
 import { Button } from "../components";
 import articles from "../constants/articles";
 import {Job} from "../components";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const { width } = Dimensions.get("screen");
 
 class Home extends React.Component {
@@ -27,7 +28,7 @@ class Home extends React.Component {
         "skills": "Microsoft Windows,     macOS,     Ubuntu",
         "country": "United States",
         "archived": false
-      }],
+      }],//This will eventually be replaced with the getJobs function
       swipedAllCards: false,
     };
     this.swiperRef = React.createRef();
@@ -60,6 +61,28 @@ class Home extends React.Component {
     });
   };
 
+  handleSwipe = (direction) => {
+    if (this.swiperRef.current) {
+      switch (direction) {
+        case 'left':
+          this.swiperRef.current.swipeLeft();
+          break;
+        case 'right':
+          this.swiperRef.current.swipeRight();
+          break;
+        case 'back':
+          this.swiperRef.current.swipeBack();
+          if (this.state.swipedAllCards){
+            this.setState({swipedAllCards : false});
+          }
+          break;
+        default:
+          console.log('Failed to handle swipe \n');
+          break;
+      }
+    }
+  }
+
   render() {
     const { cards, swipedAllCards } = this.state;
 
@@ -70,14 +93,35 @@ class Home extends React.Component {
           cards={cards}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
+          onSwipedLeft={() => console.log('Swiped left')}//These need to functions that call the job logic. Probably a stack?
+          onSwipedRight={() => console.log('Swiped Right')}
+          onSwipedTop={() => console.log('Swiped Top')}
           backgroundColor="#4C175A"
           disableBottomSwipe
         />
+        <View style={styles.button_container}>
+          <TouchableOpacity style={styles.circleButton} onPress={() => this.handleSwipe('left')}>
+            <Text>
+            👎
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.circleButton} onPress={() => this.handleSwipe('back')}>
+            <Text>
+            ↩️
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.circleButton} onPress={() => this.handleSwipe('right')}>
+            <Text>
+            👍
+            </Text>
+            </TouchableOpacity>
+        </View>
         {swipedAllCards && (
           <Button title="Reroll" onPress={this.resetDeck}>
             REROLL
           </Button>
         )}
+
       </View>
     );
   }
@@ -90,6 +134,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',  // Align children (cards) vertically in the center
     alignItems: 'center',      // Align children horizontally in the center
     paddingVertical: 20,       // Adds space at the top and bottom inside the container
+  },
+  button_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    position: 'absolute',
+    bottom: 50,
+    width: '100%',
+  },
+  circleButton: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 25,
   },
   card: {
     height: 500,               // Example fixed height, adjust based on your needs
