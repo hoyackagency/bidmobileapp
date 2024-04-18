@@ -12,7 +12,7 @@ import { Block, Button, Text, theme } from "galio-framework";
 const { height, width } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants/";
 import { HeaderHeight } from "../constants/utils";
-
+//TODO: Perhaps this screen should say 'Powered by Hoyack'
 export default class Pro extends React.Component {
   render() {
     const { navigation } = this.props;
@@ -29,24 +29,24 @@ export default class Pro extends React.Component {
             <Block>
               <Block>
                 <Image
-                  source={Images.ArgonLogo}
-                  style={{ marginBottom: theme.SIZES.BASE * 1.5 }}
+                  source={Images.HoyackLogo}
+                  style={{marginBottom: theme.SIZES.BASE, height: 100, width: 100}}
                 />
               </Block>
               <Block>
                 <Block>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    Argon
+                  <Text style={{ fontFamily: 'open-sans-bold' }} color="white" size={50}>
+                    Powerbidder
                   </Text>
                 </Block>
                 <Block>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    Design
+                  <Text style={{ fontFamily: 'open-sans-bold' }} color="white" size={50}>
+                    Mobile
                   </Text>
                 </Block>
                 <Block row>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    System
+                  <Text style={{ fontFamily: 'open-sans-bold' }} color="white" size={50}>
+                    App
                   </Text>
                   <Block middle style={styles.pro}>
                     <Text style={{ fontFamily: 'open-sans-bold' }} size={16} color="white">
@@ -57,11 +57,10 @@ export default class Pro extends React.Component {
               </Block>
               <Text
                 size={16}
-                color="rgba(255,255,255,0.6)"
+                color="#F0F0F0"
                 style={{ marginTop: 35, fontFamily: 'open-sans-regular' }}
               >
-                Take advantage of all the features and screens made upon Galio
-                Design System, coded on React Native for both.
+                © 2024, Hoyack, LLC
               </Text>
               <Block
                 row

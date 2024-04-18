@@ -35,6 +35,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 
+//import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
 const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
@@ -303,7 +306,7 @@ function HomeStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Home"
+              title="Powerbidder"
               search
               options
               navigation={navigation}
@@ -311,6 +314,7 @@ function HomeStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
+          headerTitleAlign: "center",//FIXME: This isn't centering
         }}
       />
       <Stack.Screen

@@ -7,9 +7,11 @@ import Input from './Input';
 import Switch from './Switch';
 import Select from './Select';
 import Notification from './Notification';
+import Job from './Job.js';
 
 export {
   Button,
+  Job,
   Card,
   DrawerItem,
   Icon,
