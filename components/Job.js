@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import {flags} from '../constants';
 
 Row = ({children}) => {
     return(<View style={styles.row}>{children}</View>)
@@ -10,6 +11,7 @@ class Job extends React.Component{
     constructor(props){
         super(props);
         this.job = this.props.job;
+        this.flag = flags[this.props.job.country]
     }
 
     render = () => {
@@ -32,9 +34,15 @@ class Job extends React.Component{
                     </Text>
                     <Text style={styles.country}>
                         {this.job.country}
+                        {this.flag}
                     </Text>
                     <Text style={styles.category}>
                         {this.job.category}
+                    </Text>
+                </Row>
+                <Row>
+                    <Text>
+                        Skills
                     </Text>
                 </Row>
                 <Row>
@@ -54,7 +62,8 @@ const styles = StyleSheet.create({
         width: "auto"
     },
     row:{
-        flexDirection: "row"
+        flexDirection: "row",
+        padding: 15,
     },
     title:{
         flex: 1,
@@ -67,12 +76,22 @@ const styles = StyleSheet.create({
     },
     pay_range:{
         flex: 1,
+        flexBasis: 100,
+        padding: 5,
+        borderWidth: 1,
+        textAlign: "center"
     },
     country:{
         flex: 2,
+        borderWidth: 1,
+        textAlign: "center",
+        flexBasis: 100,
     },
     category:{
         flex: 3,
+        borderWidth: 1,
+        textAlign: "center",
+        flexBasis: 100
     },
     skills:{
         flex: 1,

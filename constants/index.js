@@ -6,6 +6,7 @@ import categories from './categories';
 import deals from './deals';
 import utils from './utils';
 import cart from './cart';
+import flags from './flags';
 
 export {
   articles, 
@@ -15,5 +16,6 @@ export {
   categories,
   deals,
   utils,
-  cart
+  cart,
+  flags,
 };
